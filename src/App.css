@@ -25,6 +25,9 @@ body {
   display: flex;
   justify-content: space-between;
 }
+.heading h1 {
+  color: white;
+}
 .main {
   padding-top: 50px;
 }
@@ -34,7 +37,7 @@ ul {
 }
 .list {
   border: 1px solid hsl(233, 11%, 84%);
-
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   width: 500px;
   display: flex;
   margin-bottom: calc(0px - 2px);
@@ -57,17 +60,24 @@ ul {
 .add-form input[type="text"] {
   width: 80%;
   font-size: 20px;
-  padding: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+.add-form input[type="text"]::placeholder {
+  color: blue;
+  opacity: 0.2;
+  font-style: italic;
 }
 .addbtn {
   width: 20%;
   font-size: 20px;
   padding: 5px;
-  background-color: blueviolet;
+  background-color: white;
   border: none;
   border-radius: 5px;
-
-  color: whitesmoke;
+  color: blue;
+  font-weight: bold;
 }
 
 .xmark {
