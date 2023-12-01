@@ -2,7 +2,7 @@ import "./App.css";
 const items = [
   {
     id: 2,
-    it: "i am sukan",
+    it: "read for 1 hour",
   },
   {
     id: 3,
@@ -17,18 +17,29 @@ const items = [
 function App() {
   return (
     <>
-      <div className="main">
-        <form className="add-form">
-          <input type="text" className="inputnbtn" />
-          <button className=" addbtn">Add</button>
-        </form>
+      <div
+        className="container"
+        style={{
+          backgroundImage: `url("assetss/images/bg-desktop-light.jpg")`,
+        }}
+      >
+        <div className="main">
+          <div className="heading">
+            <h1>TODO</h1>
+            <span>🌙</span>
+          </div>
+          <form className="add-form">
+            <input type="text" className="inputnbtn" />
+            <button className=" addbtn">Add</button>
+          </form>
 
-        <div className="alllists">
-          <ul>
-            {items.map((item) => (
-              <List key={item.id} item={item} />
-            ))}
-          </ul>
+          <div className="alllists">
+            <ul>
+              {items.map((item) => (
+                <List key={item.id} item={item} />
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </>
