@@ -29,8 +29,14 @@ function App() {
             <span>🌙</span>
           </div>
           <form className="add-form">
-            <input type="text" className="inputnbtn" />
-            <button className=" addbtn">Add</button>
+            <input
+              type="text"
+              className="inputnbtn"
+              placeholder="Enter the task here"
+            />
+            <button type="submit" className=" addbtn">
+              Add
+            </button>
           </form>
 
           <div className="alllists">
