@@ -65,16 +65,15 @@ function List({ item }) {
         <input type="checkbox" />
         <span className="description">{item.it}</span>
       </span>
-      {
-        <span
-          className="xmark"
-          onClick={() => {
-            alert("hello");
-          }}
-        >
-          ╳
-        </span>
-      }
+
+      <span
+        className="xmark"
+        onClick={() => {
+          alert("hello");
+        }}
+      >
+        {isHover ? " ╳" : ""}
+      </span>
     </li>
   );
 }
