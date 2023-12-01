@@ -1,19 +1,64 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap");
 
-
-
-*
-{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 18px;
-  }
-.xmark
-{
-    cursor: pointer;
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 20px;
+}
+.main {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
+
+ul {
+  list-style: none;
+}
+.list {
+  border: 2px solid blue;
+  border-collapse: collapse;
+  width: 500px;
+  display: flex;
+  margin-bottom: calc(0px - 2px);
+  padding: 5px;
+
+  justify-content: space-between;
+  align-items: center;
+}
+.description {
+  padding: 0px 4px;
+}
+.add-form {
+  width: 500px;
+  padding: 50px 0px 20px;
+
+  display: flex;
+  gap: 2px;
+}
+.add-form input[type="text"] {
+  width: 80%;
+  font-size: 20px;
+  padding: 5px;
+}
+.add-form .addbtn {
+  width: 20%;
+  font-size: 20px;
+  padding: 5px;
+  background-color: blueviolet;
+  border: none;
+  border-radius: 5px;
+
+  color: whitesmoke;
+}
+
+.xmark {
+  cursor: pointer;
 }
