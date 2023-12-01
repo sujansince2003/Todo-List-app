@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./App.css";
 const items = [
   {
@@ -53,20 +54,27 @@ function App() {
 }
 
 function List({ item }) {
+  const [isHover, setisHover] = useState(false);
+
+  function onHover() {
+    setisHover(() => !isHover);
+  }
   return (
-    <li className="list">
+    <li className="list" onMouseEnter={onHover} onMouseLeave={onHover}>
       <span>
         <input type="checkbox" />
         <span className="description">{item.it}</span>
       </span>
-      <span
-        className="xmark"
-        onClick={() => {
-          alert("hello");
-        }}
-      >
-        ╳
-      </span>
+      {
+        <span
+          className="xmark"
+          onClick={() => {
+            alert("hello");
+          }}
+        >
+          ╳
+        </span>
+      }
     </li>
   );
 }
