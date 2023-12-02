@@ -95,11 +95,11 @@ function ListUi({ items, delItem, toggleItem, setisErrormsg }) {
   const notcompletedarr = items.filter((item) => !item.completed);
   const notcompleted = notcompletedarr.length;
   const [sortBy, setsortBy] = useState("all");
+
   let sortedItems = items;
   if (sortBy === "all") sortedItems = items;
-  if (sortBy === "completed" && completedarr.length !== 0) {
-    sortedItems = completedarr;
-  }
+  if (sortBy === "completed") sortedItems = completedarr;
+
   if (sortBy === "active") sortedItems = notcompletedarr;
   return (
     <div className="alllists">
