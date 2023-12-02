@@ -44,7 +44,7 @@ function App() {
         <div className="main">
           <Heading />
           <Form AddtoList={AddtoList} />
-          <ListUi items={items} delItem={delItem} />
+          <ListUi items={items} delItem={delItem} toggleItem={toggleItem} />
         </div>
       </div>
     </>
@@ -85,7 +85,7 @@ function Form({ AddtoList }) {
   );
 }
 
-function List({ item, delItem }) {
+function List({ item, delItem, toggleItem }) {
   const [isHover, setisHover] = useState(false);
 
   function onHover() {
@@ -94,8 +94,13 @@ function List({ item, delItem }) {
   return (
     <li className="list" onMouseEnter={onHover} onMouseLeave={onHover}>
       <span>
-        <input type="checkbox" />
-        <span className="description">{item.description}</span>
+        <input type="checkbox" onChange={() => toggleItem(item.id)} />
+        <span
+          className="description"
+          style={item.completed ? { textDecoration: "line-through" } : null}
+        >
+          {item.description}
+        </span>
       </span>
 
       <span className="xmark" onClick={() => delItem(item.id)}>
@@ -105,12 +110,17 @@ function List({ item, delItem }) {
   );
 }
 
-function ListUi({ items, delItem }) {
+function ListUi({ items, delItem, toggleItem }) {
   return (
     <div className="alllists">
       <ul>
         {items.map((item) => (
-          <List key={item.id} item={item} delItem={delItem} />
+          <List
+            key={item.id}
+            item={item}
+            delItem={delItem}
+            toggleItem={toggleItem}
+          />
         ))}
       </ul>
     </div>
