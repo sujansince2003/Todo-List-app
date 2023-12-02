@@ -3,6 +3,7 @@ import "./App.css";
 
 function App() {
   const [items, setItems] = useState([]);
+  const [isErrormsg, setisErrormsg] = useState(false);
   function AddtoList(item) {
     setItems((items) => [...items, item]);
   }
@@ -28,11 +29,28 @@ function App() {
         }}
       >
         <div className="main">
+          <ErrorMsg isErrormsg={isErrormsg} />
           <Heading />
           <Form AddtoList={AddtoList} />
-          <ListUi items={items} delItem={delItem} toggleItem={toggleItem} />
+          <ListUi
+            items={items}
+            delItem={delItem}
+            toggleItem={toggleItem}
+            setisErrormsg={setisErrormsg}
+          />
         </div>
       </div>
+    </>
+  );
+}
+function ErrorMsg({ isErrormsg }) {
+  return (
+    <>
+      {isErrormsg ? (
+        <div className="errormsg">
+          <span>No Any Task is completed</span>
+        </div>
+      ) : null}
     </>
   );
 }
@@ -71,6 +89,39 @@ function Form({ AddtoList }) {
   );
 }
 
+function ListUi({ items, delItem, toggleItem, setisErrormsg }) {
+  const itemnum = items.length;
+  const completedarr = items.filter((item) => item.completed);
+  const notcompletedarr = items.filter((item) => !item.completed);
+  const notcompleted = notcompletedarr.length;
+  const [sortBy, setsortBy] = useState("all");
+  let sortedItems = items;
+  if (sortBy === "all") sortedItems = items;
+  if (sortBy === "completed" && completedarr.length !== 0) {
+    sortedItems = completedarr;
+  }
+  if (sortBy === "active") sortedItems = notcompletedarr;
+  return (
+    <div className="alllists">
+      <ul className={itemnum >= 7 ? "alllistsul" : ""}>
+        {sortedItems.map((item) => (
+          <List
+            key={item.id}
+            item={item}
+            delItem={delItem}
+            toggleItem={toggleItem}
+          />
+        ))}
+      </ul>
+      <Actions
+        itemnum={itemnum}
+        items={items}
+        setsortBy={setsortBy}
+        notcompleted={notcompleted}
+      />
+    </div>
+  );
+}
 function List({ item, delItem, toggleItem }) {
   const [isHover, setisHover] = useState(false);
 
@@ -95,28 +146,7 @@ function List({ item, delItem, toggleItem }) {
     </li>
   );
 }
-
-function ListUi({ items, delItem, toggleItem }) {
-  const itemnum = items.length;
-  return (
-    <div className="alllists">
-      <ul className={itemnum >= 7 ? "alllistsul" : ""}>
-        {items.map((item) => (
-          <List
-            key={item.id}
-            item={item}
-            delItem={delItem}
-            toggleItem={toggleItem}
-          />
-        ))}
-      </ul>
-      <Actions itemnum={itemnum} items={items} />
-    </div>
-  );
-}
-function Actions({ itemnum, items }) {
-  const notcompleted = items.filter((item) => !item.completed).length;
-
+function Actions({ itemnum, items, setsortBy, notcompleted }) {
   return (
     <div className="actions">
       {itemnum === 0 ? (
@@ -124,14 +154,33 @@ function Actions({ itemnum, items }) {
       ) : (
         <>
           <div className="numitems">
-            <span>{itemnum} items added</span>
-            <span>{notcompleted} item left to complete</span>
+            <span>{itemnum} tasks added</span>
+            {notcompleted === 0 ? (
+              <span>All tasks are completed</span>
+            ) : (
+              <span>{notcompleted} tasks left to complete</span>
+            )}
           </div>
 
           <div className="normal-actions-btn">
-            <button className="action-btn">All</button>
-            <button className="action-btn">Active</button>
-            <button className="action-btn">Completed</button>
+            <button
+              className="action-btn"
+              onClick={() => setsortBy(() => "all")}
+            >
+              All
+            </button>
+            <button
+              className="action-btn"
+              onClick={() => setsortBy(() => "active")}
+            >
+              Active
+            </button>
+            <button
+              className="action-btn"
+              onClick={() => setsortBy("completed")}
+            >
+              Completed
+            </button>
           </div>
           <div className="clearbtn">
             <button className="action-btn action-btn-clear">
