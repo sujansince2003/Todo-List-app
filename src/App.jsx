@@ -1,19 +1,5 @@
 import { useState } from "react";
 import "./App.css";
-const itemsw = [
-  {
-    id: 2,
-    it: "read for 1 hour",
-  },
-  {
-    id: 3,
-    it: "i am sukdan",
-  },
-  {
-    id: 4,
-    it: "i am fdsj",
-  },
-];
 
 function App() {
   const [items, setItems] = useState([]);
@@ -111,9 +97,10 @@ function List({ item, delItem, toggleItem }) {
 }
 
 function ListUi({ items, delItem, toggleItem }) {
+  const itemnum = items.length;
   return (
     <div className="alllists">
-      <ul>
+      <ul className={itemnum >= 7 ? "alllistsul" : ""}>
         {items.map((item) => (
           <List
             key={item.id}
@@ -123,6 +110,36 @@ function ListUi({ items, delItem, toggleItem }) {
           />
         ))}
       </ul>
+      <Actions itemnum={itemnum} items={items} />
+    </div>
+  );
+}
+function Actions({ itemnum, items }) {
+  const notcompleted = items.filter((item) => !item.completed).length;
+
+  return (
+    <div className="actions">
+      {itemnum === 0 ? (
+        <p>Add the task from input field</p>
+      ) : (
+        <>
+          <div className="numitems">
+            <span>{itemnum} items added</span>
+            <span>{notcompleted} item left to complete</span>
+          </div>
+
+          <div className="normal-actions-btn">
+            <button className="action-btn">All</button>
+            <button className="action-btn">Active</button>
+            <button className="action-btn">Completed</button>
+          </div>
+          <div className="clearbtn">
+            <button className="action-btn action-btn-clear">
+              Clear Completed
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 }
