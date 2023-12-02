@@ -43,7 +43,6 @@ ul {
   display: flex;
   margin-bottom: calc(0px - 2px);
   padding: 10px 20px;
-
   justify-content: space-between;
   align-items: center;
   background-color: white;
