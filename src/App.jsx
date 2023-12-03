@@ -93,14 +93,20 @@ function ListUi({ items, delItem, toggleItem, setisErrormsg }) {
   const itemnum = items.length;
   const completedarr = items.filter((item) => item.completed);
   const notcompletedarr = items.filter((item) => !item.completed);
+  console.log(notcompletedarr);
   const notcompleted = notcompletedarr.length;
   const [sortBy, setsortBy] = useState("all");
+  const [clearCompleted, setclearCompleted] = useState(false);
 
   let sortedItems = items;
-  if (sortBy === "all") sortedItems = items;
-  if (sortBy === "completed") sortedItems = completedarr;
+  if (clearCompleted) sortedItems = notcompletedarr;
+  else {
+    if (sortBy === "all") sortedItems = items;
+    if (sortBy === "completed") sortedItems = completedarr;
 
-  if (sortBy === "active") sortedItems = notcompletedarr;
+    if (sortBy === "active") sortedItems = notcompletedarr;
+  }
+
   return (
     <div className="alllists">
       <ul className={itemnum >= 7 ? "alllistsul" : ""}>
@@ -110,6 +116,7 @@ function ListUi({ items, delItem, toggleItem, setisErrormsg }) {
             item={item}
             delItem={delItem}
             toggleItem={toggleItem}
+            setsortBy={setsortBy}
           />
         ))}
       </ul>
@@ -118,11 +125,12 @@ function ListUi({ items, delItem, toggleItem, setisErrormsg }) {
         items={items}
         setsortBy={setsortBy}
         notcompleted={notcompleted}
+        setclearCompleted={setclearCompleted}
       />
     </div>
   );
 }
-function List({ item, delItem, toggleItem }) {
+function List({ item, delItem, toggleItem, setsortBy }) {
   const [isHover, setisHover] = useState(false);
 
   function onHover() {
@@ -131,7 +139,14 @@ function List({ item, delItem, toggleItem }) {
   return (
     <li className="list" onMouseEnter={onHover} onMouseLeave={onHover}>
       <span>
-        <input type="checkbox" onChange={() => toggleItem(item.id)} />
+        <input
+          type="checkbox"
+          onChange={() => {
+            toggleItem(item.id);
+            setsortBy("all");
+          }}
+          checked={item.completed ? true : false}
+        />
         <span
           className="description"
           style={item.completed ? { textDecoration: "line-through" } : null}
@@ -146,7 +161,13 @@ function List({ item, delItem, toggleItem }) {
     </li>
   );
 }
-function Actions({ itemnum, items, setsortBy, notcompleted }) {
+function Actions({
+  itemnum,
+  items,
+  setsortBy,
+  notcompleted,
+  setclearCompleted,
+}) {
   return (
     <div className="actions">
       {itemnum === 0 ? (
@@ -183,7 +204,10 @@ function Actions({ itemnum, items, setsortBy, notcompleted }) {
             </button>
           </div>
           <div className="clearbtn">
-            <button className="action-btn action-btn-clear">
+            <button
+              className="action-btn action-btn-clear"
+              onClick={() => setclearCompleted(true)}
+            >
               Clear Completed
             </button>
           </div>
