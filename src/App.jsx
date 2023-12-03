@@ -1,6 +1,23 @@
 import { useState } from "react";
 import "./App.css";
 
+// const xd = [
+//   {
+//     description: "vfdv",
+//     id: 1701610448351,
+//     completed: false,
+//   },
+//   {
+//     description: "vf",
+//     id: 1701610449135,
+//     completed: true,
+//   },
+//   {
+//     description: "vdf",
+//     id: 1701610450783,
+//     completed: false,
+//   },
+// ];
 function App() {
   const [items, setItems] = useState([]);
   const [isErrormsg, setisErrormsg] = useState(false);
@@ -11,6 +28,18 @@ function App() {
   function delItem(id) {
     setItems((items) => items.filter((item) => item.id !== id));
   }
+
+  function clearItems(itemsToClear) {
+    const filteredItems = itemsToClear.filter(
+      (item) => item.completed === false
+    );
+
+    // Update state with the filtered items
+    setItems(filteredItems);
+    console.log(items);
+  }
+  // clearItems(xd);
+  // console.log(items);
 
   function toggleItem(id) {
     setItems((items) =>
@@ -28,6 +57,7 @@ function App() {
           backgroundImage: `url("assetss/images/bg-desktop-light.jpg")`,
         }}
       >
+        {/* <button onClick={() => clearItems(xd)}>clearttt</button> */}
         <div className="main">
           <ErrorMsg isErrormsg={isErrormsg} />
           <Heading />
@@ -37,6 +67,7 @@ function App() {
             delItem={delItem}
             toggleItem={toggleItem}
             setisErrormsg={setisErrormsg}
+            clearItems={clearItems}
           />
         </div>
       </div>
@@ -89,23 +120,22 @@ function Form({ AddtoList }) {
   );
 }
 
-function ListUi({ items, delItem, toggleItem, setisErrormsg }) {
+function ListUi({ items, delItem, toggleItem, setisErrormsg, clearItems }) {
   const itemnum = items.length;
   const completedarr = items.filter((item) => item.completed);
   const notcompletedarr = items.filter((item) => !item.completed);
   console.log(notcompletedarr);
   const notcompleted = notcompletedarr.length;
   const [sortBy, setsortBy] = useState("all");
-  const [clearCompleted, setclearCompleted] = useState(false);
 
   let sortedItems = items;
-  if (clearCompleted) sortedItems = notcompletedarr;
-  else {
-    if (sortBy === "all") sortedItems = items;
-    if (sortBy === "completed") sortedItems = completedarr;
-
-    if (sortBy === "active") sortedItems = notcompletedarr;
+  if (sortBy === "clear") {
+    sortedItems = notcompletedarr;
   }
+  if (sortBy === "all") sortedItems = items;
+  if (sortBy === "completed") sortedItems = completedarr;
+
+  if (sortBy === "active") sortedItems = notcompletedarr;
 
   return (
     <div className="alllists">
@@ -125,7 +155,8 @@ function ListUi({ items, delItem, toggleItem, setisErrormsg }) {
         items={items}
         setsortBy={setsortBy}
         notcompleted={notcompleted}
-        setclearCompleted={setclearCompleted}
+        completedarr={completedarr}
+        clearItems={clearItems}
       />
     </div>
   );
@@ -166,7 +197,9 @@ function Actions({
   items,
   setsortBy,
   notcompleted,
-  setclearCompleted,
+  clearItems,
+
+  completedarr,
 }) {
   return (
     <div className="actions">
@@ -199,6 +232,7 @@ function Actions({
             <button
               className="action-btn"
               onClick={() => setsortBy("completed")}
+              disabled={completedarr.length !== 0 ? false : true}
             >
               Completed
             </button>
@@ -206,7 +240,8 @@ function Actions({
           <div className="clearbtn">
             <button
               className="action-btn action-btn-clear"
-              onClick={() => setclearCompleted(true)}
+              onClick={() => clearItems(items)}
+              disabled={completedarr.length !== 0 ? false : true}
             >
               Clear Completed
             </button>
