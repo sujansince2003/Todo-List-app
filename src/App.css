@@ -50,6 +50,7 @@ ul {
   padding: 10px;
   border-radius: 5px;
   border: none;
+  font-family: "Josefin Sans", sans-serif;
 }
 .add-form input[type="text"]::placeholder {
   color: blue;
@@ -85,7 +86,11 @@ ul {
 .description {
   padding: 10px 5px;
 }
-
+/* styling for cross mark which deletes task from list */
+.xmark {
+  cursor: pointer;
+  padding: 0;
+}
 .actions {
   width: 500px;
   height: 50px;
@@ -116,12 +121,6 @@ ul {
   cursor: pointer;
   padding: 3px;
   border: 1px solid blue;
-  /* border: 0px solid transparent; */
-}
-
-.xmark {
-  cursor: pointer;
-  padding: 0;
 }
 
 /* .incara

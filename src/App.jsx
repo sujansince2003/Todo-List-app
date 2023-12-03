@@ -3,7 +3,7 @@ import "./App.css";
 
 function App() {
   const [items, setItems] = useState([]);
-  const [isErrormsg, setisErrormsg] = useState(false);
+
   function AddtoList(item) {
     setItems((items) => [...items, item]);
   }
@@ -44,7 +44,6 @@ function App() {
             items={items}
             delItem={delItem}
             toggleItem={toggleItem}
-            setisErrormsg={setisErrormsg}
             clearItems={clearCompleted}
           />
         </div>
@@ -92,7 +91,7 @@ function ListUi({ items, delItem, toggleItem, setisErrormsg, clearItems }) {
   const itemnum = items.length;
   const completedarr = items.filter((item) => item.completed);
   const notcompletedarr = items.filter((item) => !item.completed);
-  console.log(notcompletedarr);
+
   const notcompleted = notcompletedarr.length;
   const [sortBy, setsortBy] = useState("all");
 
@@ -172,7 +171,7 @@ function Actions({
   return (
     <div className="actions">
       {itemnum === 0 ? (
-        <p>Add the task from input field</p>
+        <p className="intro-msg">Add the task from input field</p>
       ) : (
         <>
           <div className="numitems">
