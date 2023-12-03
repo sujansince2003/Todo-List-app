@@ -19,10 +19,7 @@ function App() {
 
     // Update state with the filtered items
     setItems(filteredItems);
-    console.log(items);
   }
-  // clearItems(xd);
-  // console.log(items);
 
   function toggleItem(id) {
     setItems((items) =>
@@ -40,9 +37,7 @@ function App() {
           backgroundImage: `url("assetss/images/bg-desktop-light.jpg")`,
         }}
       >
-        {/* <button onClick={() => clearItems(xd)}>clearttt</button> */}
         <div className="main">
-          <ErrorMsg isErrormsg={isErrormsg} />
           <Heading />
           <Form AddtoList={AddtoList} />
           <ListUi
@@ -54,17 +49,6 @@ function App() {
           />
         </div>
       </div>
-    </>
-  );
-}
-function ErrorMsg({ isErrormsg }) {
-  return (
-    <>
-      {isErrormsg ? (
-        <div className="errormsg">
-          <span>No Any Task is completed</span>
-        </div>
-      ) : null}
     </>
   );
 }
@@ -83,6 +67,7 @@ function Form({ AddtoList }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!description) return;
     const item = { description, id: Date.now(), completed: false };
     AddtoList(item);
     setDescription("");

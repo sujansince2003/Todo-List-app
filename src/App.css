@@ -32,17 +32,6 @@ body {
   padding-top: 50px;
   position: relative;
 }
-.errormsg {
-  position: absolute;
-  top: 85px;
-  left: 150px;
-  background-color: #2ee72e;
-
-  font-style: italic;
-  font-size: 10px;
-  padding: 10px;
-  border-radius: 10px;
-}
 
 ul {
   list-style: none;
