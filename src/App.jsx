@@ -1,23 +1,6 @@
 import { useState } from "react";
 import "./App.css";
 
-// const xd = [
-//   {
-//     description: "vfdv",
-//     id: 1701610448351,
-//     completed: false,
-//   },
-//   {
-//     description: "vf",
-//     id: 1701610449135,
-//     completed: true,
-//   },
-//   {
-//     description: "vdf",
-//     id: 1701610450783,
-//     completed: false,
-//   },
-// ];
 function App() {
   const [items, setItems] = useState([]);
   const [isErrormsg, setisErrormsg] = useState(false);
@@ -29,7 +12,7 @@ function App() {
     setItems((items) => items.filter((item) => item.id !== id));
   }
 
-  function clearItems(itemsToClear) {
+  function clearCompleted(itemsToClear) {
     const filteredItems = itemsToClear.filter(
       (item) => item.completed === false
     );
@@ -67,7 +50,7 @@ function App() {
             delItem={delItem}
             toggleItem={toggleItem}
             setisErrormsg={setisErrormsg}
-            clearItems={clearItems}
+            clearItems={clearCompleted}
           />
         </div>
       </div>
