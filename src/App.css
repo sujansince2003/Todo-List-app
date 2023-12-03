@@ -36,7 +36,7 @@ body {
 ul {
   list-style: none;
 }
-
+/* styling for input box and add button */
 .add-form {
   width: 500px;
   padding: 30px 0px 20px;
@@ -67,6 +67,8 @@ ul {
   color: blue;
   font-weight: bold;
 }
+
+/* List styling */
 .alllistsul {
   height: 250px;
   overflow: scroll;
